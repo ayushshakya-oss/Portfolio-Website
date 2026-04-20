@@ -70,111 +70,213 @@ function ParticleField() {
   );
 }
 
-function Workstation() {
-  const groupRef = useRef<THREE.Group>(null);
-  const screenMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
+function createMoonTextures(seed = 1337) {
+  const width = 768;
+  const height = 384;
 
-  useFrame((state) => {
+  const albedoCanvas = document.createElement("canvas");
+  albedoCanvas.width = width;
+  albedoCanvas.height = height;
+
+  const mariaCanvas = document.createElement("canvas");
+  mariaCanvas.width = width;
+  mariaCanvas.height = height;
+
+  const roughnessCanvas = document.createElement("canvas");
+  roughnessCanvas.width = width;
+  roughnessCanvas.height = height;
+
+  const bumpCanvas = document.createElement("canvas");
+  bumpCanvas.width = width;
+  bumpCanvas.height = height;
+
+  const albedoContext = albedoCanvas.getContext("2d");
+  const mariaContext = mariaCanvas.getContext("2d");
+  const roughnessContext = roughnessCanvas.getContext("2d");
+  const bumpContext = bumpCanvas.getContext("2d");
+
+  if (!albedoContext || !mariaContext || !roughnessContext || !bumpContext) {
+    return null;
+  }
+
+  const mulberry32 = (value: number) => {
+    let t = value >>> 0;
+    return () => {
+      t += 0x6d2b79f5;
+      let r = Math.imul(t ^ (t >>> 15), 1 | t);
+      r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+
+  const random = mulberry32(seed);
+
+  bumpContext.fillStyle = "rgb(128, 128, 128)";
+  bumpContext.fillRect(0, 0, width, height);
+
+  const drawCrater = (cx: number, cy: number, radius: number) => {
+    const gradient = bumpContext.createRadialGradient(
+      cx,
+      cy,
+      radius * 0.08,
+      cx,
+      cy,
+      radius,
+    );
+    gradient.addColorStop(0, "rgba(40, 40, 40, 0.55)");
+    gradient.addColorStop(0.55, "rgba(128, 128, 128, 0)");
+    gradient.addColorStop(0.78, "rgba(180, 180, 180, 0.22)");
+    gradient.addColorStop(1, "rgba(128, 128, 128, 0)");
+    bumpContext.fillStyle = gradient;
+    bumpContext.beginPath();
+    bumpContext.arc(cx, cy, radius, 0, Math.PI * 2);
+    bumpContext.fill();
+  };
+
+  const craterCount = 85;
+  for (let index = 0; index < craterCount; index += 1) {
+    const cx = random() * width;
+    const cy = random() * height;
+    const radius = THREE.MathUtils.lerp(6, 48, Math.pow(random(), 2.2));
+    drawCrater(cx, cy, radius);
+  }
+
+  // Maria: big, soft darker regions as a mask (alpha)
+  mariaContext.clearRect(0, 0, width, height);
+  for (let index = 0; index < 7; index += 1) {
+    const cx = random() * width;
+    const cy = random() * height;
+    const radius = THREE.MathUtils.lerp(70, 170, random());
+    const gradient = mariaContext.createRadialGradient(
+      cx,
+      cy,
+      radius * 0.2,
+      cx,
+      cy,
+      radius,
+    );
+    gradient.addColorStop(0, "rgba(0, 0, 0, 0.58)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    mariaContext.fillStyle = gradient;
+    mariaContext.beginPath();
+    mariaContext.arc(cx, cy, radius, 0, Math.PI * 2);
+    mariaContext.fill();
+  }
+
+  const bumpImage = bumpContext.getImageData(0, 0, width, height);
+  const bumpData = bumpImage.data;
+
+  const mariaImage = mariaContext.getImageData(0, 0, width, height);
+  const mariaData = mariaImage.data;
+
+  const albedoImage = albedoContext.createImageData(width, height);
+  const roughnessImage = roughnessContext.createImageData(width, height);
+  const albedoData = albedoImage.data;
+  const roughData = roughnessImage.data;
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const index = (y * width + x) * 4;
+
+      const bumpValue = bumpData[index] / 255;
+      const mariaMask = mariaData[index + 3] / 255;
+      const noise =
+        (Math.sin((x + seed) * 0.06) + Math.sin((y - seed) * 0.09)) * 0.5;
+      const grain = (random() - 0.5) * 0.08;
+
+      // Base lunar regolith tone + bump shading
+      const base = 0.64;
+      const shaded =
+        base +
+        (bumpValue - 0.5) * 0.55 +
+        noise * 0.05 +
+        grain -
+        mariaMask * 0.2;
+      const luminance = THREE.MathUtils.clamp(shaded, 0.16, 0.92);
+      const colorByte = Math.round(luminance * 255);
+
+      albedoData[index] = colorByte;
+      albedoData[index + 1] = colorByte;
+      albedoData[index + 2] = colorByte;
+      albedoData[index + 3] = 255;
+
+      // Moon is mostly matte; slightly smoother where darker (maria)
+      const smoothness = THREE.MathUtils.clamp(
+        (0.75 - luminance) * 0.55,
+        0,
+        0.18,
+      );
+      const roughnessValue = 0.96 - smoothness;
+      const roughByte = Math.round(
+        THREE.MathUtils.clamp(roughnessValue, 0, 1) * 255,
+      );
+      roughData[index] = roughByte;
+      roughData[index + 1] = roughByte;
+      roughData[index + 2] = roughByte;
+      roughData[index + 3] = 255;
+    }
+  }
+
+  albedoContext.putImageData(albedoImage, 0, 0);
+  roughnessContext.putImageData(roughnessImage, 0, 0);
+  bumpContext.putImageData(bumpImage, 0, 0);
+
+  const map = new THREE.CanvasTexture(albedoCanvas);
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.wrapS = THREE.RepeatWrapping;
+  map.wrapT = THREE.ClampToEdgeWrapping;
+
+  const roughnessMap = new THREE.CanvasTexture(roughnessCanvas);
+  roughnessMap.colorSpace = THREE.NoColorSpace;
+  roughnessMap.wrapS = THREE.RepeatWrapping;
+  roughnessMap.wrapT = THREE.ClampToEdgeWrapping;
+
+  const bumpMap = new THREE.CanvasTexture(bumpCanvas);
+  bumpMap.colorSpace = THREE.NoColorSpace;
+  bumpMap.wrapS = THREE.RepeatWrapping;
+  bumpMap.wrapT = THREE.ClampToEdgeWrapping;
+
+  return { map, roughnessMap, bumpMap };
+}
+
+function Moon() {
+  const groupRef = useRef<THREE.Group>(null);
+  const textures = useMemo(() => createMoonTextures(9341), []);
+
+  useEffect(() => {
+    return () => {
+      textures?.map.dispose();
+      textures?.roughnessMap.dispose();
+      textures?.bumpMap.dispose();
+    };
+  }, [textures]);
+
+  useFrame((state, delta) => {
     if (!groupRef.current) {
       return;
     }
 
-    const elapsed = state.clock.getElapsedTime();
-    groupRef.current.position.y = -0.68 + Math.sin(elapsed * 1.2) * 0.04;
-    groupRef.current.rotation.y = state.mouse.x * 0.18;
-
-    if (screenMaterialRef.current) {
-      screenMaterialRef.current.emissiveIntensity =
-        0.45 + Math.sin(elapsed * 9) * 0.05 + Math.sin(elapsed * 23) * 0.02;
-    }
+    groupRef.current.rotation.y += delta * 0.08;
+    groupRef.current.rotation.x = state.mouse.y * 0.06;
+    groupRef.current.rotation.z = state.mouse.x * 0.06;
   });
 
   return (
-    <group ref={groupRef}>
-      <mesh position={[0, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[4.2, 0.2, 2.2]} />
-        <meshStandardMaterial
-          color="#12182a"
-          roughness={0.63}
-          metalness={0.3}
-        />
-      </mesh>
-
-      {[
-        [-1.9, -0.9, 0.95],
-        [1.9, -0.9, 0.95],
-        [-1.9, -0.9, -0.95],
-        [1.9, -0.9, -0.95],
-      ].map((position, index) => (
-        <mesh
-          key={`desk-leg-${index}`}
-          position={position as [number, number, number]}
-          castShadow
-        >
-          <boxGeometry args={[0.12, 1.7, 0.12]} />
-          <meshStandardMaterial color="#0a0f1e" roughness={0.5} />
-        </mesh>
-      ))}
-
-      <mesh position={[0, 0.52, -0.48]} castShadow>
-        <boxGeometry args={[1.85, 1.05, 0.1]} />
-        <meshStandardMaterial
-          color="#111528"
-          roughness={0.35}
-          metalness={0.35}
-        />
-      </mesh>
-
-      <mesh position={[0, 0.56, -0.42]}>
-        <planeGeometry args={[1.55, 0.82]} />
-        <meshStandardMaterial
-          ref={screenMaterialRef}
-          color="#08111d"
-          emissive="#1e4d68"
-          emissiveIntensity={0.48}
-          roughness={0.3}
-          metalness={0.1}
-        />
-      </mesh>
-
-      <mesh position={[0, 0.08, 0.2]} castShadow>
-        <boxGeometry args={[1.25, 0.07, 0.45]} />
-        <meshStandardMaterial color="#1b2138" roughness={0.45} />
-      </mesh>
-
-      <mesh position={[0, 0.16, -0.52]} castShadow>
-        <cylinderGeometry args={[0.06, 0.06, 0.52, 18]} />
-        <meshStandardMaterial
-          color="#0e1426"
-          metalness={0.55}
-          roughness={0.3}
-        />
-      </mesh>
-
-      <mesh position={[0, -0.63, 0.65]} castShadow>
-        <boxGeometry args={[0.95, 0.22, 0.95]} />
-        <meshStandardMaterial
-          color="#1e2d45"
-          roughness={0.45}
-          metalness={0.22}
-        />
-      </mesh>
-      <mesh position={[0, -0.26, 0.32]} castShadow>
-        <boxGeometry args={[0.88, 0.8, 0.22]} />
-        <meshStandardMaterial color="#22314a" roughness={0.4} metalness={0.2} />
-      </mesh>
-
-      <Float speed={1.4} rotationIntensity={0.14} floatIntensity={0.18}>
-        <mesh position={[-1.32, 0.82, -0.25]}>
-          <sphereGeometry args={[0.1, 16, 16]} />
+    <Float speed={0.85} rotationIntensity={0} floatIntensity={0.26}>
+      <group ref={groupRef} position={[0, 0.15, 0]}>
+        <mesh castShadow receiveShadow>
+          <sphereGeometry args={[1.05, 64, 64]} />
           <meshStandardMaterial
-            color="#7f58ff"
-            emissive="#7f58ff"
-            emissiveIntensity={0.85}
+            map={textures?.map ?? undefined}
+            roughnessMap={textures?.roughnessMap ?? undefined}
+            bumpMap={textures?.bumpMap ?? undefined}
+            bumpScale={0.065}
+            roughness={1}
+            metalness={0}
           />
         </mesh>
-      </Float>
-    </group>
+      </group>
+    </Float>
   );
 }
 
@@ -269,7 +371,7 @@ function SceneRig({ introReady }: CanvasSceneProps) {
         distance={7}
       />
 
-      <Workstation />
+      <Moon />
       <ParticleField />
       <ContactShadows
         position={[0, -1.5, 0]}

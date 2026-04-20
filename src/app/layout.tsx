@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Immersive Frontend Portfolio",
+  title: "Ayush Shakya | Immersive Frontend Portfolio",
   description:
     "Modern portfolio built with Next.js, React Three Fiber, and GSAP.",
 };

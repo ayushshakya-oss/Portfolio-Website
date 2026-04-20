@@ -269,7 +269,7 @@ export default function PortfolioShell() {
               data-cursor="Top"
               className="cursor-hover text-sm font-semibold tracking-[0.2em] text-cyan-100 uppercase"
             >
-              YN
+              AS
             </a>
 
             <nav className="hidden items-center gap-5 text-xs tracking-[0.14em] text-zinc-200/80 uppercase md:flex">

@@ -15,7 +15,7 @@ export default function ContactSection({
       className="scene-section relative flex min-h-screen items-center py-24"
     >
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-10">
-        <div className="glass-panel rounded-[2rem] p-8 md:p-12">
+        <div className="glass-panel rounded-4xl p-8 md:p-12">
           <p data-reveal className="section-label">
             Contact
           </p>
@@ -35,11 +35,11 @@ export default function ContactSection({
 
           <div data-reveal className="mt-8 flex flex-wrap gap-4">
             <a
-              href="mailto:hello@yourname.dev"
+              href="mailto:ashakya406@gmail.com"
               data-cursor="Send"
               className="cursor-hover rounded-full bg-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 transition-transform duration-300 hover:-translate-y-0.5"
             >
-              hello@yourname.dev
+              ashakya406@gmail.com
             </a>
             <button
               type="button"

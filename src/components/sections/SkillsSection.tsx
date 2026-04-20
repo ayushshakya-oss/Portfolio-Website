@@ -8,11 +8,14 @@ const SKILLS = [
   "Three.js",
   "React Three Fiber",
   "Tailwind CSS",
-  "Framer Motion",
   "Node.js",
-  "Design Systems",
-  "Performance Optimization",
-  "WebGL",
+  "Express.js",
+  "MongoDB",
+  "Git & GitHub",
+  "Python",
+  "Docker",
+  "PHP",
+  "WordPress",
 ];
 
 export default function SkillsSection() {

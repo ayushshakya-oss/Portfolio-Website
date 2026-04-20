@@ -7,28 +7,36 @@ import type { ProjectItem } from "@/components/types";
 
 const PROJECTS: ProjectItem[] = [
   {
-    title: "Nebula Commerce",
-    summary: "Headless storefront with cinematic product stories.",
+    title: "Annapur",
+    summary: "Agro-tech eCommerce platform with bidding system.",
     description:
-      "An immersive commerce platform using server-rendered data pipelines and a WebGL-first product explorer. Built for conversion and visual storytelling.",
-    stack: ["Next.js", "R3F", "GSAP", "Stripe", "CMS"],
-    url: "https://example.com/nebula-commerce",
+      "A full-stack agro-tech marketplace enabling farmers and buyers to trade with a real-time bidding system. Includes a comprehensive admin dashboard, secure transactions, and scalable backend architecture.",
+    stack: ["Next.js", "Node.js", "MongoDB", "Stripe"],
+    url: "https://annapur-agro-tech-platform.vercel.app", // replace with actual link
   },
   {
-    title: "Pulse Studio",
-    summary: "Creative agency portfolio with live campaign reels.",
+    title: "Immigration Portal UI",
+    summary: "Frontend UI for a government immigration system.",
     description:
-      "A premium showcase platform blending interactive case studies, timeline-based transitions, and deeply optimized media delivery for large art assets.",
-    stack: ["Next.js", "TypeScript", "GSAP", "Cloudflare"],
-    url: "https://example.com/pulse-studio",
+      "A responsive and accessible frontend interface designed for a government immigration platform. Focused on usability, clean navigation, and performance using modern Next.js practices.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    url: "https://immigration-website-dashboard.vercel.app", // replace with actual link
   },
   {
-    title: "ArcadeOps Dashboard",
-    summary: "Real-time analytics UI for game publishing teams.",
+    title: "Animated eCommerce Experience",
+    summary: "E-commerce platform with advanced GSAP animations.",
     description:
-      "A data-dense dashboard with composable chart modules, keyboard-first workflows, and nuanced micro-interactions to reduce cognitive load.",
-    stack: ["React", "Three.js", "WebSockets", "Node.js"],
-    url: "https://example.com/arcade-ops",
+      "An interactive eCommerce frontend featuring smooth GSAP-powered animations, scroll-based transitions, and engaging product showcases to enhance user experience.",
+    stack: ["Next.js", "GSAP", "JavaScript"],
+    url: "", // not deployed yet
+  },
+  {
+    title: "Car Rental System",
+    summary: "Web-based car rental management system.",
+    description:
+      "A PHP-based car rental platform allowing users to browse vehicles, make bookings, and manage rentals. Includes backend logic for availability tracking and booking management.",
+    stack: ["PHP", "MySQL", "JavaScript"],
+    url: "", // not deployed yet
   },
 ];
 
@@ -107,7 +115,7 @@ export default function ProjectsSection({
               className="project-card cursor-hover glass-panel group rounded-3xl p-6 text-left transition-colors duration-300 hover:border-cyan-300/50"
             >
               <p className="text-xs tracking-[0.2em] text-cyan-100/80 uppercase">
-                Case Study {index + 1}
+                Project {index + 1}
               </p>
               <h3 className="mt-3 text-xl font-semibold text-zinc-100">
                 {project.title}
