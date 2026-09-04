@@ -5,19 +5,24 @@ import { useEffect, useRef, useState } from "react";
 
 type CursorState = {
   active: boolean;
+  label: string;
 };
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
+
   const activeTargetRef = useRef<HTMLElement | null>(null);
-  const pointerRef = useRef({ x: -1, y: -1 });
-  const ringRef = useRef({ x: -1, y: -1 });
-  const dotPosRef = useRef({ x: -1, y: -1 });
+  const pointerRef = useRef({ x: -100, y: -100 });
+  const ringRef = useRef({ x: -100, y: -100 });
+  const dotPosRef = useRef({ x: -100, y: -100 });
   const velocityRef = useRef({ x: 0, y: 0 });
+
   const [enabled, setEnabled] = useState(false);
   const [cursorState, setCursorState] = useState<CursorState>({
     active: false,
+    label: "",
   });
 
   useEffect(() => {
@@ -45,7 +50,6 @@ export default function CustomCursor() {
     const dotElement = dotRef.current;
     const hoverSelector = "[data-cursor], .cursor-hover, a, button";
     let hasMoved = false;
-    let isInsideWindow = false;
 
     gsap.set([cursorElement, dotElement], {
       autoAlpha: 0,
@@ -61,11 +65,12 @@ export default function CustomCursor() {
       activeTargetRef.current = nextTarget;
 
       if (!nextTarget) {
-        setCursorState({ active: false });
+        setCursorState({ active: false, label: "" });
         return;
       }
 
-      setCursorState({ active: true });
+      const label = nextTarget.getAttribute("data-cursor") || "";
+      setCursorState({ active: true, label });
     };
 
     const resolveHoverTargetAt = (x: number, y: number) => {
@@ -76,7 +81,7 @@ export default function CustomCursor() {
     const showCursor = () => {
       gsap.to([cursorElement, dotElement], {
         autoAlpha: 1,
-        duration: 0.15,
+        duration: 0.2,
         ease: "power2.out",
         overwrite: true,
       });
@@ -85,46 +90,18 @@ export default function CustomCursor() {
     const hideCursor = () => {
       gsap.to([cursorElement, dotElement], {
         autoAlpha: 0,
-        duration: 0.12,
+        duration: 0.15,
         overwrite: true,
       });
     };
 
-    const syncFromLastPointer = () => {
-      const { x, y } = pointerRef.current;
-      const inBounds =
-        x >= 0 && y >= 0 && x <= window.innerWidth && y <= window.innerHeight;
-
-      if (!hasMoved || !inBounds || document.visibilityState !== "visible") {
-        hideCursor();
-        updateHoverState(null);
-        return;
-      }
-
-      isInsideWindow = true;
-      ringRef.current = { x, y };
-      dotPosRef.current = { x, y };
-      gsap.set(cursorElement, { x, y });
-      gsap.set(dotElement, { x, y });
-      showCursor();
-      updateHoverState(resolveHoverTargetAt(x, y));
-    };
-
     const tick = () => {
-      if (!hasMoved) {
-        return;
-      }
+      if (!hasMoved) return;
 
       const pointer = pointerRef.current;
 
-      const clampedVx = Math.max(
-        -14,
-        Math.min(14, velocityRef.current.x * 1.1),
-      );
-      const clampedVy = Math.max(
-        -14,
-        Math.min(14, velocityRef.current.y * 1.1),
-      );
+      const clampedVx = Math.max(-12, Math.min(12, velocityRef.current.x * 0.8));
+      const clampedVy = Math.max(-12, Math.min(12, velocityRef.current.y * 0.8));
 
       const ringTargetX = pointer.x + clampedVx;
       const ringTargetY = pointer.y + clampedVy;
@@ -132,11 +109,11 @@ export default function CustomCursor() {
       ringRef.current.x += (ringTargetX - ringRef.current.x) * 0.22;
       ringRef.current.y += (ringTargetY - ringRef.current.y) * 0.22;
 
-      dotPosRef.current.x += (pointer.x - dotPosRef.current.x) * 0.52;
-      dotPosRef.current.y += (pointer.y - dotPosRef.current.y) * 0.52;
+      dotPosRef.current.x += (pointer.x - dotPosRef.current.x) * 0.55;
+      dotPosRef.current.y += (pointer.y - dotPosRef.current.y) * 0.55;
 
-      velocityRef.current.x *= 0.86;
-      velocityRef.current.y *= 0.86;
+      velocityRef.current.x *= 0.85;
+      velocityRef.current.y *= 0.85;
 
       gsap.set(cursorElement, {
         x: ringRef.current.x,
@@ -163,7 +140,6 @@ export default function CustomCursor() {
         gsap.set(dotElement, { x: event.clientX, y: event.clientY });
       }
 
-      isInsideWindow = true;
       pointerRef.current = { x: event.clientX, y: event.clientY };
       showCursor();
 
@@ -173,63 +149,62 @@ export default function CustomCursor() {
     };
 
     const onLeaveWindow = () => {
-      isInsideWindow = false;
       hideCursor();
       updateHoverState(null);
     };
 
-    const onEnterWindow = () => {
-      isInsideWindow = true;
-      syncFromLastPointer();
-    };
-
-    const onFocus = () => {
-      if (isInsideWindow) {
-        syncFromLastPointer();
-      }
-    };
-
-    const onVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        syncFromLastPointer();
-        return;
-      }
-
-      onLeaveWindow();
+    const onEnterWindow = (event: PointerEvent) => {
+      pointerRef.current = { x: event.clientX, y: event.clientY };
+      showCursor();
+      updateHoverState(resolveHoverTargetAt(event.clientX, event.clientY));
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerleave", onLeaveWindow);
-    window.addEventListener("pointerenter", onEnterWindow);
-    window.addEventListener("blur", onLeaveWindow);
-    window.addEventListener("focus", onFocus);
-    document.addEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener("pointerleave", onLeaveWindow);
+    document.addEventListener("pointerenter", onEnterWindow);
     gsap.ticker.add(tick);
 
     return () => {
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerleave", onLeaveWindow);
-      window.removeEventListener("pointerenter", onEnterWindow);
-      window.removeEventListener("blur", onLeaveWindow);
-      window.removeEventListener("focus", onFocus);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
+      document.removeEventListener("pointerleave", onLeaveWindow);
+      document.removeEventListener("pointerenter", onEnterWindow);
       gsap.ticker.remove(tick);
       activeTargetRef.current = null;
     };
   }, [enabled]);
 
   useEffect(() => {
-    if (!enabled || !cursorRef.current) {
-      return;
-    }
+    if (!enabled || !cursorRef.current) return;
 
-    gsap.to(cursorRef.current, {
-      scale: cursorState.active ? 1.18 : 1,
-      duration: 0.16,
-      ease: "power2.out",
-      overwrite: true,
-    });
-  }, [cursorState.active, enabled]);
+    if (cursorState.label) {
+      gsap.to(cursorRef.current, {
+        width: 72,
+        height: 72,
+        backgroundColor: "rgba(56, 189, 248, 0.15)",
+        borderColor: "rgba(56, 189, 248, 0.6)",
+        duration: 0.25,
+        ease: "power2.out",
+      });
+    } else if (cursorState.active) {
+      gsap.to(cursorRef.current, {
+        width: 48,
+        height: 48,
+        backgroundColor: "rgba(255, 255, 255, 0.08)",
+        borderColor: "rgba(56, 189, 248, 0.4)",
+        duration: 0.25,
+        ease: "power2.out",
+      });
+    } else {
+      gsap.to(cursorRef.current, {
+        width: 32,
+        height: 32,
+        backgroundColor: "transparent",
+        borderColor: "rgba(125, 211, 252, 0.4)",
+        duration: 0.25,
+        ease: "power2.out",
+      });
+    }
+  }, [cursorState, enabled]);
 
   if (!enabled) {
     return null;
@@ -239,13 +214,24 @@ export default function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="custom-cursor fixed left-0 top-0 z-80 hidden h-9 w-9 rounded-full border border-cyan-200/55 bg-transparent md:grid place-items-center"
-      />
+        className="custom-cursor fixed left-0 top-0 z-80 hidden rounded-full border pointer-events-none backdrop-blur-[2px] md:flex items-center justify-center text-center shadow-[0_0_20px_rgba(56,189,248,0.2)]"
+        style={{ willChange: "transform, width, height" }}
+      >
+        {cursorState.label && (
+          <span
+            ref={labelRef}
+            className="text-[10px] font-bold tracking-widest text-cyan-200 uppercase"
+          >
+            {cursorState.label}
+          </span>
+        )}
+      </div>
       <div
         ref={dotRef}
-        className={`custom-cursor fixed left-0 top-0 z-81 hidden h-2 w-2 rounded-full bg-cyan-200 md:block ${
+        className={`custom-cursor fixed left-0 top-0 z-81 hidden h-1.5 w-1.5 rounded-full bg-cyan-300 pointer-events-none md:block transition-opacity duration-200 ${
           cursorState.active ? "opacity-0" : "opacity-100"
         }`}
+        style={{ willChange: "transform" }}
       />
     </>
   );
