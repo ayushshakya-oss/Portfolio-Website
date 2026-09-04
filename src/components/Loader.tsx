@@ -11,10 +11,17 @@ export default function Loader({ onComplete }: LoaderProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
+  const statusText =
+    progress < 30
+      ? "Initializing WebGL 3D Context"
+      : progress < 70
+        ? "Compiling GLSL Shader Pipelines"
+        : progress < 95
+          ? "Choreographing GSAP Timelines"
+          : "Ready";
+
   useEffect(() => {
-    if (!rootRef.current) {
-      return;
-    }
+    if (!rootRef.current) return;
 
     const counter = { value: 0 };
 
@@ -25,7 +32,8 @@ export default function Loader({ onComplete }: LoaderProps) {
 
     timeline.to(counter, {
       value: 100,
-      duration: 2.3,
+      duration: 2.1,
+      ease: "power2.inOut",
       onUpdate: () => setProgress(Math.round(counter.value)),
     });
 
@@ -33,16 +41,17 @@ export default function Loader({ onComplete }: LoaderProps) {
       ".loader-bar-fill",
       {
         scaleX: 1,
-        duration: 2.3,
+        duration: 2.1,
+        ease: "power2.inOut",
       },
       0,
     );
 
     timeline.to(rootRef.current, {
       autoAlpha: 0,
-      duration: 0.85,
+      duration: 0.8,
       ease: "power3.inOut",
-      delay: 0.2,
+      delay: 0.15,
     });
 
     return () => {
@@ -53,18 +62,21 @@ export default function Loader({ onComplete }: LoaderProps) {
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-100 grid place-items-center bg-[#02040a]"
+      className="fixed inset-0 z-100 grid place-items-center bg-[#020409]"
     >
-      <div className="w-[min(520px,88vw)]">
-        <p className="text-[11px] tracking-[0.2em] text-zinc-400 uppercase">
-          Initializing Portfolio Experience
-        </p>
-        <div className="mt-4 h-0.5 overflow-hidden rounded-full bg-zinc-700/70">
-          <div className="loader-bar-fill h-full origin-left scale-x-0 bg-cyan-300" />
-        </div>
-        <div className="mt-3 flex items-center justify-between text-sm text-zinc-300">
-          <span>Loading Assets</span>
+      <div className="w-[min(480px,88vw)]">
+        <div className="flex items-center justify-between text-[11px] font-mono tracking-[0.24em] text-cyan-300 uppercase">
+          <span>Ayush Shakya // 2025</span>
           <span>{progress}%</span>
+        </div>
+
+        <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/10 p-[1px]">
+          <div className="loader-bar-fill h-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 shadow-[0_0_15px_rgba(56,189,248,0.7)]" />
+        </div>
+
+        <div className="mt-3 flex items-center justify-between text-xs font-mono text-zinc-400">
+          <span>{statusText}</span>
+          <span className="text-[10px] text-zinc-400">{"// creative-dev"}</span>
         </div>
       </div>
     </div>
