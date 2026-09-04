@@ -126,19 +126,34 @@ export default function PortfolioShell() {
         }
 
         if (revealItems.length > 0) {
-          gsap.from(revealItems, {
-            y: 28,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.85,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 75%",
+          gsap.fromTo(
+            revealItems,
+            { y: 24, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.08,
+              duration: 0.75,
+              ease: "power3.out",
+              clearProps: "opacity,transform",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                toggleActions: "play none none none",
+                once: true,
+              },
             },
-          });
+          );
         }
       });
+
+      const refreshTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 250);
+
+      return () => {
+        clearTimeout(refreshTimer);
+      };
     });
 
     return () => {
