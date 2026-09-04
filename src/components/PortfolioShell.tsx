@@ -19,6 +19,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ContactSection from "@/components/sections/ContactSection";
 import HeroSection from "@/components/sections/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import ResumeSection from "@/components/sections/ResumeSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import type { ProjectItem } from "@/components/types";
 
@@ -57,6 +58,7 @@ export default function PortfolioShell() {
       { href: "#about", label: "About" },
       { href: "#projects", label: "Works" },
       { href: "#skills", label: "Skills" },
+      { href: "#resume", label: "Resume" },
       { href: "#contact", label: "Contact" },
     ],
     [],
@@ -373,6 +375,7 @@ export default function PortfolioShell() {
         <AboutSection />
         <ProjectsSection onOpenProject={setSelectedProject} />
         <SkillsSection />
+        <ResumeSection />
         <ContactSection
           soundEnabled={soundEnabled}
           onToggleSound={() => setSoundEnabled((prev) => !prev)}

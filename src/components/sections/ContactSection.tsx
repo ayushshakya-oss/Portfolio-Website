@@ -39,7 +39,7 @@ export default function ContactSection({
 
           <div className="relative z-10 max-w-3xl">
             <span data-reveal className="section-label">
-              04 // Get In Touch
+              05 // Get In Touch
             </span>
 
             <SplitWords
@@ -176,7 +176,7 @@ export default function ContactSection({
                   data-cursor="GitHub"
                   className="cursor-hover transition-colors hover:text-cyan-300"
                 >
-                  // github.com/ayushshakya-oss
+                  {"// github.com/ayushshakya-oss"}
                 </a>
                 <a
                   href="https://www.linkedin.com/in/ayush-shakya-a1644a182/"
@@ -185,7 +185,7 @@ export default function ContactSection({
                   data-cursor="LinkedIn"
                   className="cursor-hover transition-colors hover:text-cyan-300"
                 >
-                  // linkedin
+                  {"// linkedin"}
                 </a>
               </div>
 
