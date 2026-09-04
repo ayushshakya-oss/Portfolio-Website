@@ -139,7 +139,7 @@ function SceneRig({ introReady, soundEnabled = false }: CanvasSceneProps) {
         },
       });
 
-      // 4. Skills -> Contact
+      // 4. Skills -> Resume
       ScrollTrigger.create({
         trigger: "#skills",
         start: "top top",
@@ -147,16 +147,38 @@ function SceneRig({ introReady, soundEnabled = false }: CanvasSceneProps) {
         scrub: 1.2,
         onUpdate: (self) => {
           const progress = self.progress;
-          // Core glides to center-bottom as a glowing reactor
+          // Core shifts from left to right-rear, illuminating the resume card
           const skillsX = isMobile ? 0 : -1.6;
-          targetCorePos.current.x = THREE.MathUtils.lerp(skillsX, 0, progress);
-          targetCorePos.current.y = THREE.MathUtils.lerp(0.35, -0.7, progress);
-          targetCorePos.current.z = THREE.MathUtils.lerp(0, 0.5, progress);
-          targetCoreScale.current = THREE.MathUtils.lerp(1.05, 1.25, progress);
+          const resumeX = isMobile ? 0 : 1.4;
+          targetCorePos.current.x = THREE.MathUtils.lerp(skillsX, resumeX, progress);
+          targetCorePos.current.y = THREE.MathUtils.lerp(0.35, 0.1, progress);
+          targetCorePos.current.z = THREE.MathUtils.lerp(0, -1.2, progress);
+          targetCoreScale.current = THREE.MathUtils.lerp(1.05, 1.1, progress);
 
-          setExplodeFactor(THREE.MathUtils.lerp(0.7, 0.15, progress));
-          setNoiseDisplacement(THREE.MathUtils.lerp(1.2, 1.5, progress));
-          targetCamPos.current.z = THREE.MathUtils.lerp(5.5, 4.8, progress);
+          setExplodeFactor(THREE.MathUtils.lerp(0.7, 0.4, progress));
+          setNoiseDisplacement(THREE.MathUtils.lerp(1.2, 1.0, progress));
+          targetCamPos.current.z = THREE.MathUtils.lerp(5.5, 5.9, progress);
+        },
+      });
+
+      // 5. Resume -> Contact
+      ScrollTrigger.create({
+        trigger: "#resume",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1.2,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // Core glides to center-bottom as a glowing reactor
+          const resumeX = isMobile ? 0 : 1.4;
+          targetCorePos.current.x = THREE.MathUtils.lerp(resumeX, 0, progress);
+          targetCorePos.current.y = THREE.MathUtils.lerp(0.1, -0.7, progress);
+          targetCorePos.current.z = THREE.MathUtils.lerp(-1.2, 0.5, progress);
+          targetCoreScale.current = THREE.MathUtils.lerp(1.1, 1.25, progress);
+
+          setExplodeFactor(THREE.MathUtils.lerp(0.4, 0.15, progress));
+          setNoiseDisplacement(THREE.MathUtils.lerp(1.0, 1.5, progress));
+          targetCamPos.current.z = THREE.MathUtils.lerp(5.9, 4.8, progress);
         },
       });
     });

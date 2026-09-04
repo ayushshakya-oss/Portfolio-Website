@@ -39,7 +39,7 @@ export default function ContactSection({
 
           <div className="relative z-10 max-w-3xl">
             <span data-reveal className="section-label">
-              04 // Get In Touch
+              05 // Get In Touch
             </span>
 
             <SplitWords
