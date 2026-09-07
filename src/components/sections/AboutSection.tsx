@@ -5,23 +5,23 @@ import SplitWords from "@/components/sections/SplitWords";
 const PILLARS = [
   {
     num: "01",
-    title: "Immersive 3D & Shaders",
-    desc: "Procedural geometry, custom GLSL noise displacement, and interactive lighting using React Three Fiber.",
+    title: "Backend & Node.js Architecture",
+    desc: "Scalable REST APIs, asynchronous pipelines, secure authentication, and resilient database schemas with MongoDB & SQL.",
   },
   {
     num: "02",
-    title: "Cinematic Choreography",
-    desc: "Fine-tuned GSAP ScrollTrigger timelines, scrubbed momentum, and micro-interactions that feel alive.",
+    title: "Full-Stack Web Engineering",
+    desc: "Next.js App Router, server-rendered React components, state management, and accessible high-performance interfaces.",
   },
   {
     num: "03",
-    title: "Performance & Architecture",
-    desc: "Zero jank, adaptive DPR capping, clean dispose lifecycles, and resilient Next.js App Router architecture.",
+    title: "Immersive 3D & Creative Tech",
+    desc: "Procedural geometry, custom GLSL shaders, interactive React Three Fiber scenes, and fluid GSAP choreography.",
   },
   {
     num: "04",
-    title: "Design Systems & Detail",
-    desc: "Harmonious dark aesthetics, glassmorphism, responsive typography, and tactile cursor feedback.",
+    title: "Performance & Production Rigor",
+    desc: "Sub-second LCP, edge caching, low-latency API response times, and strict TypeScript end-to-end type safety.",
   },
 ];
 
@@ -37,12 +37,12 @@ export default function AboutSection() {
           <div>
             <div data-reveal className="mb-4">
               <span className="section-label">
-                01 // About & Approach
+                01 // About &amp; Approach
               </span>
             </div>
 
             <SplitWords
-              text="I craft polished product experiences from concept to production."
+              text="Architecting end-to-end web products from database to browser."
               className="mt-4 text-3xl leading-tight font-bold text-zinc-100 sm:text-4xl lg:text-5xl"
             />
 
@@ -50,25 +50,27 @@ export default function AboutSection() {
               data-reveal
               className="mt-6 text-base leading-relaxed text-zinc-300/85 sm:text-lg"
             >
-              My work blends frontend architecture, creative direction, and motion
-              systems. I care deeply about details that users feel but cannot
-              always name: pacing, depth, tactility, and buttery smoothness.
+              My engineering spans full-stack web development, scalable Node.js backend
+              systems, and high-impact creative interfaces. I design and build production-ready
+              digital platforms that unite robust server-side architecture, clean data schemas,
+              and frictionless user experiences.
             </p>
 
             <p
               data-reveal
               className="mt-4 text-sm leading-relaxed text-zinc-400"
             >
-              Every interaction is thoughtfully choreographed to guide attention,
-              reinforce brand value, and turn standard web pages into memorable digital artifacts.
+              From architecting full-stack bidding platforms on Annapur and AI dashboards
+              on Bidlens to engineering multi-vendor storefronts and choreographing WebGL shaders,
+              every project is built for speed, resilience, and mathematical elegance.
             </p>
 
             {/* Quick Metrics */}
             <div data-reveal className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
               <div>
-                <p className="text-2xl font-bold text-cyan-300">60 FPS</p>
+                <p className="text-2xl font-bold text-cyan-300">&lt; 150ms</p>
                 <p className="mt-1 text-xs tracking-wider text-zinc-400 uppercase">
-                  WebGL Frame Rate
+                  API Latency
                 </p>
               </div>
               <div>
@@ -78,9 +80,9 @@ export default function AboutSection() {
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-purple-300">&lt; 1.2s</p>
+                <p className="text-2xl font-bold text-purple-300">60 FPS</p>
                 <p className="mt-1 text-xs tracking-wider text-zinc-400 uppercase">
-                  LCP Optimization
+                  WebGL &amp; Motion
                 </p>
               </div>
             </div>

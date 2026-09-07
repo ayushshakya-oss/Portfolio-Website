@@ -11,43 +11,53 @@ type SkillCategory = {
 
 const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    id: "creative",
-    name: "Creative & 3D",
+    id: "backend",
+    name: "Backend & Node.js",
     skills: [
-      { name: "Three.js", level: "Advanced", highlight: true },
-      { name: "React Three Fiber", level: "Advanced", highlight: true },
-      { name: "GSAP & ScrollTrigger", level: "Expert", highlight: true },
-      { name: "GLSL / Shaders", level: "Intermediate", highlight: true },
+      { name: "Node.js", level: "Advanced", highlight: true },
+      { name: "Express.js", level: "Advanced", highlight: true },
+      {
+        name: "REST APIs & WebSockets",
+        level: "Intermediate",
+        highlight: true,
+      },
+      { name: "MongoDB & Mongoose", level: "Advanced", highlight: true },
+      { name: "PostgreSQL / MySQL", level: "Intermediate" },
+      { name: "JWT Auth & Security", level: "Intermediate", highlight: true },
     ],
   },
   {
     id: "frontend",
-    name: "Frontend Core",
+    name: "Frontend & Full Stack",
     skills: [
       { name: "Next.js (App Router)", level: "Expert", highlight: true },
       { name: "React 19", level: "Expert", highlight: true },
       { name: "TypeScript", level: "Advanced", highlight: true },
-      { name: "Tailwind CSS", level: "Expert" },
+      { name: "Tailwind CSS", level: "Expert", highlight: true },
+      { name: "State & Cache Mgmt", level: "Advanced" },
+      { name: "Responsive UI/UX", level: "Expert" },
     ],
   },
   {
-    id: "backend",
-    name: "Backend & Systems",
+    id: "creative",
+    name: "Creative & 3D Web",
     skills: [
-      { name: "Node.js", level: "Advanced" },
-      { name: "Express.js", level: "Advanced" },
-      { name: "MongoDB", level: "Intermediate" },
-      { name: "Python", level: "Intermediate" },
-      { name: "PHP", level: "Intermediate" },
+      { name: "Three.js", level: "Intermediate", highlight: true },
+      { name: "React Three Fiber", level: "Intermediate", highlight: true },
+      { name: "GSAP & ScrollTrigger", level: "Expert", highlight: true },
+      { name: "GLSL / Shaders", level: "Beginner", highlight: true },
+      { name: "WebGL 3D Canvases", level: "Beginner" },
     ],
   },
   {
     id: "devops",
-    name: "DevOps & Tools",
+    name: "DevOps & Architecture",
     skills: [
-      { name: "Git & GitHub", level: "Advanced" },
+      { name: "Git & GitHub", level: "Advanced", highlight: true },
       { name: "Docker", level: "Intermediate" },
-      { name: "WordPress", level: "Intermediate" },
+      { name: "Cloud & Vercel CI/CD", level: "Advanced", highlight: true },
+      { name: "Postman & API Testing", level: "Advanced" },
+      { name: "Performance Profiling", level: "Advanced" },
     ],
   },
 ];
@@ -69,10 +79,10 @@ export default function SkillsSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <span data-reveal className="section-label">
-              03 // Capabilities & Tech
+              03 // Capabilities &amp; Tech
             </span>
             <SplitWords
-              text="Tools and frameworks I use to ship fast, expressive, and reliable software."
+              text="Tools and frameworks I use to engineer robust full-stack platforms, scalable backends, and expressive digital experiences."
               className="mt-4 max-w-3xl text-3xl leading-tight font-bold text-zinc-100 sm:text-4xl lg:text-5xl"
             />
           </div>

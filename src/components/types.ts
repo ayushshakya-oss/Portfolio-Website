@@ -10,4 +10,5 @@ export type ProjectItem = {
   githubUrl?: string;
   impact?: string;
   highlights?: string[];
+  status?: string;
 };

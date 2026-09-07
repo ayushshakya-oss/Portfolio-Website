@@ -13,9 +13,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ayush Shakya | Immersive Frontend Portfolio",
+  title: "Ayush Shakya | Full Stack Web Developer & Creative Engineer",
   description:
-    "Modern portfolio built with Next.js, React Three Fiber, and GSAP.",
+    "Portfolio of Ayush Shakya — Full Stack Web Developer specializing in Node.js, Next.js, and interactive Three.js digital experiences.",
 };
 
 export default function RootLayout({

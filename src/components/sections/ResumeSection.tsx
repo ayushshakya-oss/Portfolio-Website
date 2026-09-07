@@ -14,46 +14,67 @@ type ExperienceItem = {
 
 const EXPERIENCE: ExperienceItem[] = [
   {
-    role: "Lead Full-Stack & Creative Developer",
+    role: "Frontend Engineer — AI Interfaces",
+    org: "Bidlens AI Platform",
+    period: "2026",
+    type: "AI & Enterprise Web",
+    description:
+      "Architected and engineered the frontend platform, interactive analytical dashboards, and real-time document viewing interfaces for an enterprise AI tender intelligence suite.",
+    highlights: [
+      "Engineered interactive TOR document criteria inspectors and AI summarization views",
+      "Built responsive competitor pricing benchmark dashboards and data visualization tools",
+      "Integrated AI REST endpoints into high-performance, accessible Next.js interfaces",
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs",
+      "Zod",
+    ],
+  },
+  {
+    role: "Frontend Web Engineer",
     org: "Annapur Agro-Tech Platform",
-    period: "2024 — 2025",
-    type: "Production Platform",
+    period: "2025",
+    type: "Marketplace Frontend",
     description:
-      "Architected the full-stack agro-tech marketplace connecting farmers and buyers with a dynamic bidding engine, secure payments, and administrative control suite.",
+      "Engineered the responsive frontend web application and real-time bidding interface connecting agricultural producers directly with commercial buyers.",
     highlights: [
-      "Engineered real-time bidding system with instant socket-driven price updates",
-      "Integrated Stripe checkout and multi-tenant admin telemetry dashboards",
-      "Achieved sub-second page loads using Next.js App Router and edge caching",
+      "Engineered real-time dynamic bidding interface with instant socket-driven price ticker updates",
+      "Built farmer & buyer management dashboards with interactive telemetry metrics",
+      "Achieved sub-second page loads using Next.js App Router and responsive client design",
     ],
-    stack: ["Next.js", "TypeScript", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "WebSockets",
+      "Stripe Checkout",
+    ],
   },
   {
-    role: "Frontend Design System Engineer",
-    org: "Immigration Portal UI",
-    period: "2024 — 2025",
-    type: "GovTech / Enterprise",
+    role: "Frontend & Creative Web Developer",
+    org: "Raramarket & Client Digital Builds",
+    period: "2025-Present",
+    type: "E-Commerce & 3D Web",
     description:
-      "Developed an accessible, high-security frontend platform for government immigration workflows with multi-step application and document verification.",
+      "Crafted high-performance e-commerce storefront interfaces, multi-vendor shopping flows, and cinematic 3D digital experiences integrating React Three Fiber and GSAP.",
     highlights: [
-      "Strict WCAG 2.1 AA accessibility compliance across all multi-step forms",
-      "Optimized Core Web Vitals to 98+ Lighthouse performance score",
-      "Implemented dynamic client-side document validation and state persistence",
+      "Developed modular Next.js & React storefront UI for cross-border multi-vendor catalogs",
+      "Created procedural GLSL shaders, React Three Fiber scenes, and buttery GSAP scroll choreography",
+      "Enforced strict WCAG accessibility and optimized Core Web Vitals to 98+ Lighthouse scores",
     ],
-    stack: ["Next.js 16", "TypeScript", "Tailwind CSS", "React Hook Form", "Zod"],
-  },
-  {
-    role: "Creative Web & 3D Developer",
-    org: "Independent Products & Client Builds",
-    period: "2023 — Present",
-    type: "Creative Engineering",
-    description:
-      "Crafted high-impact commercial and portfolio web applications integrating React Three Fiber, custom GLSL shaders, and fine-tuned GSAP scroll choreographies.",
-    highlights: [
-      "Procedural GLSL vertex and fragment shader systems with noise displacement",
-      "Smooth momentum scroll integration with Lenis and GSAP ScrollTrigger",
-      "Interactive 3D product previews and fluid micro-interaction systems",
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Three.js",
+      "Tailwind CSS",
+      "GSAP",
     ],
-    stack: ["Three.js", "React Three Fiber", "GSAP", "GLSL", "WebGL", "Lenis"],
   },
 ];
 
@@ -77,9 +98,9 @@ export default function ResumeSection() {
             data-reveal
             className="mt-5 text-base leading-relaxed text-zinc-300/85 sm:text-lg"
           >
-            A verified record of production systems delivered, technical leadership,
-            and continuous architectural discipline. Download the full resume or inspect
-            verified milestones below.
+            A verified record of production systems delivered, technical
+            leadership, and continuous architectural discipline. Download the
+            full resume or inspect verified milestones below.
           </p>
         </div>
 
@@ -238,10 +259,18 @@ export default function ResumeSection() {
                   Document Overview Includes:
                 </p>
                 <ul className="space-y-2 list-disc list-inside text-zinc-300/85">
-                  <li>Full production engineering history &amp; project scopes</li>
-                  <li>In-depth technical skills, frameworks &amp; tooling proficiency</li>
-                  <li>Architecture, accessibility &amp; performance metrics</li>
-                  <li>Verified contact details, GitHub &amp; credentials</li>
+                  <li>Full-stack &amp; Node.js backend architecture history</li>
+                  <li>
+                    Multi-vendor platforms, AI integrations &amp; database
+                    schemas
+                  </li>
+                  <li>
+                    Creative WebGL 3D, accessibility &amp; performance metrics
+                  </li>
+                  <li>
+                    Verified contact details, GitHub repositories &amp;
+                    credentials
+                  </li>
                 </ul>
               </div>
 
