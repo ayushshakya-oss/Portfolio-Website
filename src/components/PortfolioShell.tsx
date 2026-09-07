@@ -398,7 +398,7 @@ export default function PortfolioShell() {
 
         {/* Elevated Minimal Footer */}
         <footer className="relative border-t border-white/5 px-6 py-12 text-center text-xs tracking-[0.2em] text-zinc-400 uppercase">
-          <p>Designed &amp; Engineered by Ayush Shakya • Next.js 16 + R3F + GSAP</p>
+          <p>Designed &amp; Engineered by Ayush Shakya • Node.js + Next.js + Three.js</p>
         </footer>
       </div>
 

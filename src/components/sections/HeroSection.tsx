@@ -25,14 +25,14 @@ export default function HeroSection() {
           {/* Role Pill */}
           <div data-reveal className="mb-4">
             <span className="text-xs font-semibold tracking-[0.24em] text-cyan-300 uppercase">
-              Ayush Shakya — Creative Developer & Frontend Engineer
+              Ayush Shakya — Full Stack Web Developer &amp; Creative Engineer
             </span>
           </div>
 
           {/* Main Kinetic Headline */}
           <SplitWords
             as="h1"
-            text="Building cinematic interfaces with code, motion, and light."
+            text="Building resilient web systems, scalable backends, and cinematic interfaces."
             className="text-4xl leading-[1.08] font-bold tracking-tight text-zinc-100 sm:text-6xl lg:text-7xl"
           />
 
@@ -41,23 +41,28 @@ export default function HeroSection() {
             data-reveal
             className="mt-6 max-w-xl text-base leading-relaxed text-zinc-300/85 sm:text-lg"
           >
-            Specialized in crafting high-impact digital experiences at the
-            intersection of WebGL 3D, buttery GSAP choreography, and robust
-            Next.js engineering.
+            Specialized in engineering high-performance Node.js backend systems,
+            modern full-stack web architectures, and interactive 3D digital
+            experiences with Next.js, TypeScript, and Three.js.
           </p>
 
           {/* Capability Tags */}
           <div data-reveal className="mt-7 flex flex-wrap items-center gap-2.5">
-            {["Next.js 16", "React Three Fiber", "GLSL Shaders", "GSAP ScrollTrigger"].map(
-              (tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-zinc-300 backdrop-blur-sm"
-                >
-                  {tag}
-                </span>
-              ),
-            )}
+            {[
+              "Node.js & Express",
+              "Full Stack Web",
+              "Next.js (App Router)",
+              "TypeScript & REST APIs",
+              "React Three Fiber",
+              "Database Architecture",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-zinc-300 backdrop-blur-sm"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
           {/* Action CTAs */}

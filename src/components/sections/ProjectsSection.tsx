@@ -7,63 +7,113 @@ import type { ProjectItem } from "@/components/types";
 
 export const PROJECTS: ProjectItem[] = [
   {
-    title: "Annapur",
-    category: "Agro-Tech Marketplace",
-    year: "2025",
-    summary: "Agro-tech eCommerce platform with real-time bidding system.",
+    title: "Bidlens AI",
+    category: "AI Tender Intelligence Frontend",
+    year: "2026",
+    status: "Live Platform",
+    summary:
+      "AI-driven tender intelligence frontend automating bidding analysis, TOR visualization, and procurement metrics.",
     description:
-      "A full-stack agro-tech marketplace enabling farmers and buyers to trade with a real-time bidding system. Includes a comprehensive admin dashboard, secure Stripe transactions, inventory monitoring, and a scalable cloud-native backend architecture.",
-    stack: ["Next.js", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
+      "Engineered the frontend platform and analytical dashboard interfaces for an enterprise AI tender intelligence application. Developed interactive Terms of Reference (TOR) document inspection views, competitive pricing benchmark charts, and high-performance Next.js workflows.",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AI REST APIs"],
+    url: "https://bidlensai.com",
+    highlights: [
+      "AI document criteria inspection & interactive TOR summary views",
+      "Competitive pricing benchmark dashboards and data visualization",
+      "Fast, responsive Next.js application state with sub-second navigation",
+    ],
+  },
+  {
+    title: "Raramarket",
+    category: "Cross-Border E-Commerce Frontend",
+    year: "2025-Present",
+    status: "Live Platform",
+    summary:
+      "High-performance web storefront and multi-vendor eCommerce UI for an international marketplace.",
+    description:
+      "Engineered the modern web storefront and user interface for an international cross-border e-commerce platform. Built responsive product catalogs, dynamic cart and checkout flows, vendor management views, and optimized client performance across diverse international markets.",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs"],
+    url: "https://raramarket.jp",
+    highlights: [
+      "Modular web storefront architecture with instant catalog search and filtering",
+      "Seamless multi-vendor shopping, localized cart, and checkout UI workflows",
+      "Optimized Core Web Vitals and image delivery for international connectivity",
+    ],
+  },
+  {
+    title: "Annapur",
+    category: "Full-Stack Agro-Tech Marketplace & Bidding",
+    year: "2025",
+    status: "Live Platform",
+    summary:
+      "Full-stack agro-tech eCommerce platform with real-time bidding, Node.js backend, and farmer telemetry.",
+    description:
+      "Architected and built the full-stack agro-tech marketplace enabling farmers and agricultural buyers to trade transparently through a real-time dynamic bidding engine. Engineered the Node.js backend with socket-driven bid updates, secure Stripe payment processing, MongoDB database models, and responsive farmer/buyer dashboards.",
+    stack: [
+      "Node.js",
+      "Next.js",
+      "TypeScript",
+      "MongoDB",
+      "Stripe",
+      "WebSockets",
+      "Tailwind CSS",
+    ],
     url: "https://annapur-agro-tech-platform.vercel.app",
     highlights: [
-      "Real-time dynamic price bidding engine",
-      "Comprehensive farmer & buyer dashboard",
-      "Secure payment processing via Stripe",
+      "Real-time dynamic price bidding engine powered by Node.js & WebSockets",
+      "Full-stack payment integration & automated seller payout pipeline via Stripe",
+      "Comprehensive farmer & buyer telemetry dashboard with role-based permissions",
     ],
   },
   {
     title: "Immigration Portal UI",
-    category: "GovTech Design System",
+    category: "GovTech Web Platform",
     year: "2025",
-    summary: "Frontend UI for a government immigration and visa system.",
+    status: "Live Platform",
+    summary:
+      "Frontend UI and design system for a government immigration and visa system.",
     description:
       "A responsive, accessible, and high-security frontend interface designed for a government immigration platform. Focused on rigorous WCAG accessibility, clear multi-step verification workflows, and fast page loads using modern Next.js practices.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "React Hook Form"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "React Hook Form", "Zod"],
     url: "https://immigration-website-dashboard.vercel.app",
     highlights: [
-      "Multi-step secure application flow",
+      "Multi-step secure application flow with rigorous client validation",
       "Strict WCAG 2.1 AA accessibility compliance",
-      "Dynamic document verification status",
+      "Dynamic document verification status tracking",
     ],
   },
   {
     title: "Animated eCommerce Experience",
-    category: "Creative Frontend & Motion",
-    year: "2024",
-    summary: "E-commerce platform with advanced GSAP animations and kinetic layout.",
+    category: "Creative Motion & Frontend Prototype",
+    year: "2025",
+    status: "Deployment Pending",
+    summary:
+      "Interactive eCommerce concept with advanced GSAP animations and kinetic layout (awaiting web deployment).",
     description:
-      "An interactive eCommerce showcase featuring smooth GSAP-powered animations, scroll-based product transitions, kinetic type effects, and fluid cart micro-interactions that elevate brand storytelling.",
+      "An interactive eCommerce showcase featuring smooth GSAP-powered animations, scroll-based product transitions, kinetic type effects, and fluid cart micro-interactions that elevate brand storytelling. Currently maintained as a development prototype awaiting live web deployment.",
     stack: ["Next.js", "GSAP", "ScrollTrigger", "JavaScript", "CSS Modules"],
-    url: "https://annapur-agro-tech-platform.vercel.app", // fallback link
+    url: "",
     highlights: [
-      "Custom GSAP ScrollTrigger timeline reveals",
-      "Buttery page and layout transitions",
-      "Interactive 3D product showcase perspectives",
+      "Custom GSAP ScrollTrigger timeline reveals and scrubbed momentum",
+      "Buttery page and layout transitions with kinetic typography",
+      "Creative prototype actively prepared for upcoming web deployment",
     ],
   },
   {
-    title: "Car Rental System",
-    category: "Full Stack Management",
+    title: "Car Rental Platform",
+    category: "Full Stack Node.js Web App",
     year: "2024",
-    summary: "Web-based car rental booking and fleet management system.",
+    status: "Offline Prototype",
+    summary:
+      "Full-stack web application with custom Node.js and Express REST backend for vehicle fleet bookings.",
     description:
-      "A complete car rental platform allowing users to browse vehicles, filter by specifications, make bookings, and manage rentals. Features a backend administration module for availability tracking, reservations, and maintenance scheduling.",
-    stack: ["PHP", "MySQL", "JavaScript", "HTML5/CSS3"],
+      "A complete full-stack web application with a custom Node.js and Express backend REST API for live vehicle reservations, fleet availability tracking, user authentication, and administrative controls.",
+    stack: ["Node.js", "Express.js", "MySQL", "REST APIs", "Tailwind CSS"],
     url: "",
     highlights: [
-      "Live vehicle availability and fleet tracking",
-      "Automated reservation calculation engine",
-      "Role-based administrative control panel",
+      "Custom Node.js & Express RESTful API with relational database schemas",
+      "Automated reservation calculation and booking management engine",
+      "Role-based administrative control suite with JWT authentication",
     ],
   },
 ];
@@ -133,7 +183,7 @@ export default function ProjectsSection({
               02 // Selected Works
             </span>
             <SplitWords
-              text="Projects where interaction design drives real-world product impact."
+              text="Full-stack web applications, scalable Node.js backends, and creative interactive platforms."
               className="mt-4 max-w-3xl text-3xl leading-tight font-bold text-zinc-100 sm:text-4xl lg:text-5xl"
             />
           </div>
@@ -141,7 +191,8 @@ export default function ProjectsSection({
             data-reveal
             className="max-w-xs text-xs tracking-wider text-zinc-400 uppercase md:text-right"
           >
-            Click any project card to inspect architecture, stack &amp; live demos.
+            Click any project card to inspect architecture, backend stack &amp;
+            live demos.
           </p>
         </div>
 
@@ -165,18 +216,31 @@ export default function ProjectsSection({
                 }}
               >
                 {/* Header info */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-bold tracking-widest text-cyan-300">
+                <div className="flex items-start sm:items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+                    <span className="shrink-0 text-xs font-mono font-bold tracking-widest text-cyan-300">
                       0{index + 1}
                     </span>
-                    <span className="text-xs tracking-wider text-zinc-400 uppercase">
+                    <span className="truncate text-xs tracking-wider text-zinc-400 uppercase">
                       {project.category}
                     </span>
                   </div>
-                  <span className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[11px] text-zinc-400">
-                    {project.year}
-                  </span>
+                  <div className="flex shrink-0 items-center gap-2">
+                    {project.status && (
+                      <span
+                        className={`whitespace-nowrap rounded-full px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide ${
+                          project.url
+                            ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                            : "border border-amber-500/30 bg-amber-500/10 text-amber-300"
+                        }`}
+                      >
+                        {project.status}
+                      </span>
+                    )}
+                    <span className="whitespace-nowrap rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[11px] text-zinc-400">
+                      {project.year}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Project Title */}
@@ -220,7 +284,7 @@ export default function ProjectsSection({
                   </div>
 
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-300">
-                    <span>Inspect Details</span>
+                    <span>Inspect Architecture</span>
                     <svg
                       className="h-3.5 w-3.5"
                       fill="none"

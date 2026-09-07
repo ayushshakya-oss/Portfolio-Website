@@ -73,12 +73,23 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         {/* Modal Top Bar */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
               <span className="text-xs font-semibold tracking-widest text-cyan-300 uppercase">
                 {project.category || "Selected Work"}
               </span>
+              {project.status && (
+                <span
+                  className={`whitespace-nowrap rounded-full px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide ${
+                    project.url
+                      ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                      : "border border-amber-500/30 bg-amber-500/10 text-amber-300"
+                  }`}
+                >
+                  {project.status}
+                </span>
+              )}
               {project.year && (
-                <span className="rounded-full border border-white/10 px-2 py-0.5 font-mono text-[10px] text-zinc-400">
+                <span className="whitespace-nowrap rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[10px] text-zinc-400">
                   {project.year}
                 </span>
               )}
@@ -176,9 +187,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </svg>
             </a>
           ) : (
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-zinc-400">
-              Deployment in progress
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-medium text-amber-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+                <span>{project.status ? `${project.status} (Not Deployed Online Yet)` : "Deployment in progress"}</span>
+              </span>
+            </div>
           )}
 
           <button
